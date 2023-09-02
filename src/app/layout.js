@@ -1,7 +1,8 @@
 // import { SessionProvider, useSession } from "next-auth/react";
-import { ClerkProvider } from "@clerk/nextjs";
 import "./globals.css";
 import { Inter } from "next/font/google";
+import { AbcdP } from "@/context/auth";
+import { root } from "postcss";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,15 +12,16 @@ export const metadata = {
 };
 
 export default async function RootLayout({ children }) {
-  const session = await getSession(headers().get("cookie") ?? "");
-
+ 
   return (
-    <ClerkProvider {...pageProps}>
-    <html lang="en">
-     
-        <body className={inter.className}>{children}</body>
-   
-    </html>
-    </ClerkProvider>
+    <>
+      <html lang="en">
+       
+        <AbcdP>
+          <body className={inter.className}>{children}</body>
+        </AbcdP>
+       
+      </html>
+    </>
   );
 }

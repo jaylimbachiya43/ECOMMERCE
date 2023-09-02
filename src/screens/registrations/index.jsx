@@ -1,10 +1,18 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
+import { useRouter } from "next/navigation";
 
 const RegistrationForm = () => {
-  //   const router = useRouter();
+  const {push} = useRouter()
+  useEffect(() => {
+    const token = localStorage.getItem("auth_token");
+    if (token) {
+      push("/home");
+    }
+  
+  }, []);
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {

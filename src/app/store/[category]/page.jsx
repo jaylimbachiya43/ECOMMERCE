@@ -1,45 +1,41 @@
-"use client";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
-import Image from "next/image";
-import Link from "next/link";
-import Idbutton from "../Idbutton";
-import Addcart from "../addbutton";
-import AddToCartButton from "../addbutton";
+'use client'
+import AddToCartButton from '@/screens/addbutton';
+import axios from 'axios';
+import Image from 'next/image';
+import Link from 'next/link';
+import React, { useEffect, useState } from 'react'
 
-const ProductList = () => {
-  const [products, setProducts] = useState([]);
-  // const [open, setOpen] = useState(false);
-  useEffect(() => {
-    // Fetch product data when the component mounts
-    fetchProducts();
-  }, []);
+const CategoryItems = (context) => {
+    const [products, setProducts] = useState([]);
+    // const [filter, setFilter] = useState([]);
 
-  const fetchProducts = async () => {
-    try {
-      const response = await axios.get(
-        "https://fakestoreapi.com/products"
-      );
-      console.log(response.data);
-      setProducts(response.data);
-    } catch (error) {
-      console.error("Error fetching product data:", error);
-    }
-  };
-
-  // const addItems = async (product) => {
-  //   console.log("hello");
-
-  //   try {
-  //     const response = await axios.post(`http://localhost:1337/api/carts`, product)
-  //     console.log(response);
-  //   } catch (error) {
-  //     console.log("jdpfkas", error);
-  //   }
-  // };
-
+    useEffect(() => {
+      // Fetch product data when the component mounts
+      fetchProducts();
+    }, []);
+  
+    const fetchProducts = async () => {
+      try {
+        const response = await axios.get(
+          `https://fakestoreapi.com/products`
+        );
+        console.log(response.data);
+        const filterProducts = response.data.filter(
+          (product) => product.category === `${context.params.category}`
+        );
+        console.log(filterProducts);
+        setProducts(filterProducts);
+      } catch (error) {
+        console.error("Error fetching product data:", error);
+      }
+    };
+    // const filterProducts = products?.filter(product => product.category === `${context.params.Category}`);
+  //  setFilter(filterProducts);
   return (
-    <div className="bg-white">
+    <div className=' text-black'> 
+     
+        
+           <div className="bg-white">
       <div className="  px-4 py-16 sm:px-6 sm:py-24  lg:px-8">
         <h1 className="text-2xl font-bold  text-gray-900">Products</h1>
 
@@ -81,7 +77,9 @@ const ProductList = () => {
         </ul>
       </div>
     </div>
-  );
-};
 
-export default ProductList;
+    </div>
+  )
+}
+
+export default CategoryItems

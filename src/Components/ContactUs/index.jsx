@@ -4,11 +4,12 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import axios from "axios";
 
 const ContactForm = () => {
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting,   resetForm}) => {
     console.log({ values });
     try {
       const response = await axios.post(
-        "http://localhost:1337/api/contacts",
+        // "http://localhost:1337/api/contacts"
+        'https://formspree.io/f/xjvqggqr',
         { data: values }
       );
 
@@ -23,6 +24,7 @@ const ContactForm = () => {
       console.error("Error:", error);
       // Handle error
     } finally {
+      resetForm();
       setSubmitting(false);
     }
   };
@@ -43,7 +45,7 @@ const ContactForm = () => {
   };
 
   return (
-    <div className="max-w-md mx-4 md:mx-auto my-14">
+    <div className="max-w-md mx-4 md:mx-auto my-14  ">
       <h1 className="text-2xl font-bold mb-4">Contact Form</h1>
       <Formik
         initialValues={initialValues}
